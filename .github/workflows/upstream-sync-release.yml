@@ -73,7 +73,12 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Install Android API 36
-        run: sdkmanager "platforms;android-36"
+        run: |
+          set -euo pipefail
+          sdkmanager_path="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)"
+          test -n "$sdkmanager_path"
+          yes | "$sdkmanager_path" --licenses >/dev/null || true
+          "$sdkmanager_path" "platforms;android-36"
       - name: Test and build installable test-signed APK
         run: |
           chmod +x ./gradlew
