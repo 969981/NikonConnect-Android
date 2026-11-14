@@ -72,7 +72,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
       - name: Install Android API 36
         run: sdkmanager "platforms;android-36"
       - name: Test and build installable test-signed APK
